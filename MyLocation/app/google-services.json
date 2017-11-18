@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "617240136378",
+    "firebase_url": "https://mylocation-b1819.firebaseio.com",
+    "project_id": "mylocation-b1819",
+    "storage_bucket": "mylocation-b1819.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:617240136378:android:5bef55d408a34398",
+        "android_client_info": {
+          "package_name": "gloryhunter.mylocation"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "617240136378-qah04car4te80ck862669ot4hkabp5p2.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "gloryhunter.mylocation",
+            "certificate_hash": "07038b99521e069c6f0ba0c7bd6d8ba7b231a142"
+          }
+        },
+        {
+          "client_id": "617240136378-3q2qcc4gci8vap1i158tc1b7oghhscdl.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAszxuDfObv9NQg2snmtaQX_1w-qzkBxiU"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "617240136378-3q2qcc4gci8vap1i158tc1b7oghhscdl.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
