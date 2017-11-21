@@ -3,7 +3,6 @@ package gloryhunter.mylocation;
 import android.Manifest;
 import android.app.ProgressDialog;
 import android.content.pm.PackageManager;
-import android.graphics.Color;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
@@ -15,19 +14,30 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
-
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptor;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
-import com.google.android.gms.maps.model.Circle;
-import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import gloryhunter.mylocation.network.GetLocationGasStationService;
+import gloryhunter.mylocation.network.MainObjectJSON;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+
+
 public class MainActivity extends AppCompatActivity implements LocationListener {
+    private static final String TAG = "location";
     private GoogleMap myMap;
     private ProgressDialog myProgress;
 
@@ -213,6 +223,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
             // Lấy ra vị trí.
             myLocation = locationManager
                     .getLastKnownLocation(locationProvider);
+
         }
         // Với Android API >= 23 phải catch SecurityException.
         catch (SecurityException e) {
@@ -235,13 +246,52 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
                     .build();                   // Creates a CameraPosition from the builder
             myMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
 
+
+
             // Thêm Marker cho Map:
-            MarkerOptions option = new MarkerOptions();
-            option.title("SOS location");
-            option.snippet("pls help me");
-            option.position(latLng);
-            Marker currentMarker = myMap.addMarker(option);
-            currentMarker.showInfoWindow();
+//            MarkerOptions option = new MarkerOptions();
+//            option.title("SOS location");
+//            option.snippet("pls help me");
+//            option.position(latLng);
+//            Marker currentMarker = myMap.addMarker(option);
+//            currentMarker.showInfoWindow();
+
+            //TODO: test gas_station location
+
+            GetLocationGasStationService getLocationGasStationService = RetrofitFactory.getInstance()
+                    .create(GetLocationGasStationService.class);
+
+            getLocationGasStationService.getGasStation(myLocation.getLatitude() + "," + myLocation.getLongitude(),
+                    5000,
+                    "gas_station",
+                    "AIzaSyC_USdup6JhPfDVN_TdV8syHoQYhDPSzwQ"
+            ).enqueue(new Callback<MainObjectJSON>() {
+                @Override
+                public void onResponse(Call<MainObjectJSON> call, Response<MainObjectJSON> response) {
+                    List<MainObjectJSON.ResultJSON> resultJSONS = response.body().getResult();
+
+                    for (MainObjectJSON.ResultJSON resultJSON : resultJSONS){
+                        MarkerOptions option = new MarkerOptions();
+                        option.title(resultJSON.getName());
+                        option.snippet("Radius 5000m");
+                        BitmapDescriptor icon = BitmapDescriptorFactory.fromResource(R.raw.gas_station71);
+                        option.icon(icon);
+                        LatLng latLng = new LatLng(resultJSON.getGeometry().getLocation().getLat(),
+                                resultJSON.getGeometry().getLocation().getLng());
+                        option.position(latLng);
+                        Marker currentMarker = myMap.addMarker(option);
+                        currentMarker.showInfoWindow();
+                    }
+
+                }
+
+                @Override
+                public void onFailure(Call<MainObjectJSON> call, Throwable t) {
+                    Toast.makeText(MainActivity.this, "No Connection", Toast.LENGTH_SHORT).show();
+                }
+            });
+            //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
         } else {
             Toast.makeText(this, "Location not found!", Toast.LENGTH_LONG).show();
             Log.i(MYTAG, "Location not found");
@@ -249,6 +299,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
 
 
     }
+
 
 
     @Override
