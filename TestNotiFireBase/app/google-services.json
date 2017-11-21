@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "1034912294172",
+    "firebase_url": "https://testnotifirebase-e62d6.firebaseio.com",
+    "project_id": "testnotifirebase-e62d6",
+    "storage_bucket": "testnotifirebase-e62d6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1034912294172:android:a87edecf32d88133",
+        "android_client_info": {
+          "package_name": "techkids.vn.testnotifirebase"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1034912294172-s1ut921u1cl2qbdntp87h568b6sup0u6.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "techkids.vn.testnotifirebase",
+            "certificate_hash": "07038b99521e069c6f0ba0c7bd6d8ba7b231a142"
+          }
+        },
+        {
+          "client_id": "1034912294172-eemsrq8v1sumhjiqnp7580pjj2908gmr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBQ7pJM8_Rg5vN5Lumcok8bplQNiS7GH9w"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1034912294172-eemsrq8v1sumhjiqnp7580pjj2908gmr.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
